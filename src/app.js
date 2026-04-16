@@ -14,7 +14,7 @@ app.use(
 		logger,
 		genReqId: (req) => req.requestId,
 		customProps: (req) => ({
-			requestId; req.requestId,
+			requestId: req.requestId,
 		}),
 	})
 );
@@ -24,7 +24,7 @@ app.get("/health", (req, res) => {
 	req.log.info(
 		{
 			requestId: req.requestId,
-			method: req:method,
+			method: req.method,
 			path: req.url,
 		},
 		"health check hit"
