@@ -2,6 +2,7 @@ const express = require("express");
 const pinoHttp = require("pino-http");
 const logger = require("./utils/logger");
 const requestId = require("./middlewares/requestId");
+const errorHandler = require("./middlewares/errorHandler")
 
 const app = express();
 
@@ -32,5 +33,13 @@ app.get("/health", (req, res) => {
 
 	res.status(200).json({ ok: true });
 });
+
+app.get("/error-test", (req, res, next) => {
+	const err = new Error("Test error route");
+	err.status = 500;
+	next(err);
+});
+
+app.use(errorHandler);
 
 module.exports = app;
